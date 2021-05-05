@@ -17,7 +17,7 @@
         @click="eval"
         type="button"
         value="eval"
-        :disabled="compiled"
+        :disabled="compiled != null && !compiled.getValue().length"
       >
     </div>
 
@@ -112,7 +112,7 @@ export default {
         value: text
       })
 
-      editor.renderer.once('afterRender', () => {
+      editor.renderer.on('afterRender', () => {
         const worker = editor.getSession().$worker
         if (!worker) {
           return
