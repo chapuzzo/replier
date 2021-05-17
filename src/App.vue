@@ -8,6 +8,11 @@
         type="button"
         value="compile"
       >
+      <input
+        @click="compileAndRun"
+        type="button"
+        value="compile & run"
+      >
     </div>
 
     <div ref="compiled"/>
@@ -145,6 +150,10 @@ export default {
 
       Object.assign(this, fn())
       this.setup()
+    },
+    compileAndRun () {
+      this.compile()
+      this.run()
     }
   },
   data () {
