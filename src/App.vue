@@ -31,6 +31,7 @@
       >
     </div>
 
+    <div ref="all"/>
   </div>
 </template>
 
@@ -87,6 +88,7 @@ export default {
         }
       `
     })
+    this.all = this.setUpEditor(this.$refs.all, 'javascript', { readOnly: true })
   },
   methods: {
     compile () {
@@ -127,16 +129,19 @@ export default {
       eval(this.compiled.getValue())
     },
     run () {
-      // eslint-disable-next-line no-new-func
-      const fn = new Function('fn', `
+      const text = d`
         with(this) {
-          ${this.compiled.getValue()}
-
           ${this.env.getValue()}
+
+          ${this.compiled.getValue()}
 
           return {setup, step}
         }
-      `)
+      `
+      this.all.setValue(text)
+
+      // eslint-disable-next-line no-new-func
+      const fn = new Function('fn', text)
 
       Object.assign(this, fn())
       this.setup()
@@ -144,8 +149,9 @@ export default {
   },
   data () {
     return {
-      editor: null,
+      all: null,
       compiled: null,
+      editor: null,
       setup: () => {},
       step: () => {}
     }
