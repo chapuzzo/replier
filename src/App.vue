@@ -147,7 +147,7 @@ export default {
       this.all.setValue(text)
 
       // eslint-disable-next-line no-new-func
-      const fn = new Function('fn', text)
+      const fn = new Function(text)
 
       Object.assign(this, fn())
       this.setup()
