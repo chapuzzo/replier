@@ -77,6 +77,17 @@ export default {
         end
       `
     })
+
+    this.editor.commands.on('exec', (e) => {
+      const rowCol = this.editor.selection.getCursor()
+
+      if (rowCol.row <= 6 && !['go', 'select', 'copy'].some(s => e.command.name.startsWith(s))) {
+        e.preventDefault()
+        e.stopPropagation()
+        console.debug(`sorry ${e.command.name} is not allowd in this editor`)
+      }
+    })
+
     this.compiled = this.setUpEditor(this.$refs.compiled, 'javascript')
     this.env = this.setUpEditor(this.$refs.env, 'javascript', {
       text: d`
