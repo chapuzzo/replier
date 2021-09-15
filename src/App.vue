@@ -33,6 +33,7 @@
         @click="run"
         type="button"
         value="run"
+        :disabled="compiled != null && !compiled.getValue().length"
       >
     </div>
 
