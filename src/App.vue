@@ -145,6 +145,7 @@ export default {
         }
       `
       this.all.setValue(text)
+      this.all.clearSelection()
 
       // eslint-disable-next-line no-new-func
       const fn = new Function(text)
@@ -177,6 +178,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .toolbar {
   margin: 10px 0;
 }
